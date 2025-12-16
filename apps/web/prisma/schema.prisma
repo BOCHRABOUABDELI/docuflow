@@ -88,11 +88,6 @@ model Invitation {
   @@map("invitations")
 }
 
-/**
- * Documents (MVP foundation)
- * - store original file + preview image + OCR/IA JSON + status
- * - duplicate detection: unique per org + supplierTaxId + supplierInvoiceNumber
- */
 enum DocumentStatus {
   PENDING
   PROCESSING
@@ -144,7 +139,7 @@ model Document {
   ocrText               String?
   aiJson                Json?
   currency              String?        // e.g. EUR
-  totalAmount           Decimal?       @db.Numeric(12,2)
+  totalAmount           Decimal?
   issuedAt              DateTime?
 
   createdAt             DateTime       @default(now())
@@ -159,9 +154,6 @@ model Document {
   @@map("documents")
 }
 
-/**
- * NextAuth / Auth.js tables (works even if we later swap to Supabase Auth)
- */
 model Account {
   id                String  @id @default(cuid())
   userId            String
